@@ -2,11 +2,10 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <exception>
 #include <string>
 using namespace std;
-class Classe {
+class Classe :public exception{
 public:
 	Classe() :_nome("4b"), _Studenti(22) {};
 	Classe(string nome, int Studenti) : _nome(nome), _Studenti(Studenti) {};
@@ -20,6 +19,9 @@ public:
 
 	};
 	virtual const int andamento() = 0;
+	virtual const char* what() const throw() {
+		return "Error";
+	};
 protected:
 	int _Studenti;
 	string _nome;
@@ -39,7 +41,10 @@ public:
 	Studenti(int voti, string nome) :_voti(voti), _nome(nome) {};
 	int getVoto() { return _voti; }
 	string getNome() { return _nome; }
-	
+	virtual const char* what() const throw() {
+		return "Error";
+
+	}
 	virtual const int andamento() { return 10; }
 	friend ostream& operator<<(ostream& os, Studenti& rhs) {
 

@@ -7,6 +7,7 @@
 #include "Studenti.h"
 
 Studenti students;
+
 void color() {
 	int colore=students.color();
 	switch (colore) {
@@ -40,8 +41,7 @@ void addStudent() {
 	cout << "Inserisci voto alunno" << endl;
 	cin >> voto;
 	if (voto >= 10 && voto <= 0) {
-		cout << "Inserisci un voto compreso tra 10 e 0" << endl;
-		system("cls");
+		throw Studenti();
 		return;
 	}
 	system("cls");
