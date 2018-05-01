@@ -4,6 +4,7 @@
 #include <fstream>
 #include <exception>
 #include <string>
+#include <numeric>  
 using namespace std;
 class Classe :public exception{
 public:
@@ -55,6 +56,7 @@ public:
 		return "Error";
 	}
 	virtual const int andamento() { return 10; }
+	virtual double media() {return 1.0 * std::accumulate(_voti.begin(), _voti.end(), 0LL) / _voti.size();}
 	friend ostream& operator<<(ostream& os, Studenti& rhs) {
 
 		os << rhs.getNome() << ":"  << endl;
@@ -63,9 +65,10 @@ public:
 		{
 			os<< *ii <<" ";
 		}
-		
+		os << "Media: " << rhs.media() << endl;
 		return os;
 	}
+	
 	virtual void writeOnFile(const Studenti studente)const {
 
 		ofstream myfile;

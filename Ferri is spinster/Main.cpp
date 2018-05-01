@@ -55,7 +55,6 @@ void addStudent() {
 	while (scelta!='n');
 	system("cls");
 	Studenti s(voti,nome);
-	
 	students.writeOnFile(s);
 }
 void menu() {
