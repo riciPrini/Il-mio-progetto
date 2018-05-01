@@ -35,17 +35,26 @@ void color() {
 }
 void addStudent() {
 	int voto;
+	vector<int>voti;
+	char scelta;
 	string nome;
 	cout << "Inserisci nome alunno" << endl;
 	cin >> nome;
-	cout << "Inserisci voto alunno" << endl;
+	do{
+	cout << "Inserisci voti alunno" << endl;
 	cin >> voto;
 	if (voto >= 10 && voto <= 0) {
 		throw Studenti();
 		return;
 	}
+	voti.push_back(voto);
+	cout << "Continuare?[s/n]" << endl;
+	cin >> scelta;
 	system("cls");
-	Studenti s(voto,nome);
+	} 
+	while (scelta!='n');
+	system("cls");
+	Studenti s(voti,nome);
 	
 	students.writeOnFile(s);
 }

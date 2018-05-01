@@ -16,7 +16,6 @@ public:
 		green,
 		yellow,
 		red,
-
 	};
 	virtual const int andamento() = 0;
 	virtual const char* what() const throw() {
@@ -28,30 +27,46 @@ protected:
 
 	
 };
+
+
+
 class Studenti : public Classe{
 protected:
-	int _voti;
+	vector<int> _voti;
 	string _nome;
 
 public:
 	Studenti():Classe() {
-		_voti = 10;
-		_nome = "Rici";
+		vector<int>::iterator it;
+		for (it = _voti.begin(); it != _voti.end(); ++it) {
+			_voti.push_back(10);
+		}
+		_nome = "";
 }
-	Studenti(int voti, string nome) :_voti(voti), _nome(nome) {};
-	int getVoto() { return _voti; }
+	Studenti(vector<int> voti, string nome)  {
+		
+		_voti.insert(_voti.end(), voti.begin(), voti.end());
+		voti.clear();
+		_nome = nome;
+	};
+	vector<int> const getVoto() const { return _voti; }
 	string getNome() { return _nome; }
 	virtual const char* what() const throw() {
 		return "Error";
-
 	}
 	virtual const int andamento() { return 10; }
 	friend ostream& operator<<(ostream& os, Studenti& rhs) {
 
-		os << rhs.getNome() << ":" << rhs.getVoto() << endl;
+		os << rhs.getNome() << ":"  << endl;
+		vector<int>::iterator it;
+		for (std::vector<int>::const_iterator ii = rhs._voti.begin(); ii != rhs._voti.end(); ++ii)
+		{
+			os<< *ii <<" ";
+		}
+		
 		return os;
 	}
-	void writeOnFile(const Studenti studente)const {
+	virtual void writeOnFile(const Studenti studente)const {
 
 		ofstream myfile;
 		myfile.open("C:\\Users\\Rici\\Desktop\\MYDATABASE.txt", ios::app);
@@ -64,7 +79,7 @@ public:
 		myfile.close();
 
 	}
-	void readFromFile()const {
+	virtual void readFromFile()const {
 		string line;
 		ifstream myfile("C:\\Users\\Rici\\Desktop\\MYDATABASE.txt");
 		if (myfile.is_open())
@@ -80,13 +95,13 @@ public:
 
 
 	}
-	void deleteRegister() {
+	virtual void deleteRegister() {
 		ofstream myfile;
 		myfile.open("C:\\Users\\Rici\\Desktop\\MYDATABASE.txt", ios::out);
 		myfile << "";
 		myfile.close();
 	}
-	int color() {
+	virtual int color() {
 		
 		int scelta;
 		cout << "" << endl;
